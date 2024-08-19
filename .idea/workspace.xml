@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/clustering.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/20pts.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbscan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djlorj.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gmm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hierarchical_agglomerative.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kmeans.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/preprocessing.py" afterDir="false" />
+    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="Different clusterings">
+      <change afterPath="$PROJECT_DIR$/20 Clusters.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_coord_fullwarm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_coord_partialwarm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_dist_partialwarm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/clustering.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/clustering.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +45,12 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2kNUbMFYI1kEUe2yY0GrZt2VGJi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -66,6 +64,12 @@
     "Python.hierarchical_agglomerative.executor": "Run",
     "Python.kmeans.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.main_coord.executor": "Run",
+    "Python.main_coord_fullwarm.executor": "Run",
+    "Python.main_coord_partialwarm.executor": "Run",
+    "Python.main_dist_fullwarm.executor": "Run",
+    "Python.main_dist_partialwarm.executor": "Run",
+    "Python.main_test.executor": "Run",
     "Python.try.executor": "Run",
     "Python.tryü.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -86,6 +90,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$USER_HOME$/Desktop" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -102,20 +109,41 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723123597314</updated>
-      <workItem from="1723123599388" duration="23289000" />
+      <workItem from="1723123599388" duration="29968000" />
+      <workItem from="1723379625868" duration="37371000" />
     </task>
+    <task id="LOCAL-00001" summary="Different clusterings">
+      <option name="closed" value="true" />
+      <created>1723303846626</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723303846626</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Different clustering techniques." />
+    <MESSAGE value="Different clusterings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Different clusterings" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/clustering$gmm.coverage" NAME="gmm Coverage Results" MODIFIED="1723218367752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/clustering$try.coverage" NAME="try Coverage Results" MODIFIED="1723218960560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$try.coverage" NAME="try Coverage Results" MODIFIED="1723304285074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$tryü.coverage" NAME="tryü Coverage Results" MODIFIED="1723229762120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/clustering$main.coverage" NAME="main Coverage Results" MODIFIED="1723302677096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$kmeans.coverage" NAME="kmeans Coverage Results" MODIFIED="1723217979632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$dbscan.coverage" NAME="dbscan Coverage Results" MODIFIED="1723218325764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/clustering$hierarchical_agglomerative.coverage" NAME="hierarchical_agglomerative Coverage Results" MODIFIED="1723302401937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_partialwarm.coverage" NAME="main_dist_partialwarm Coverage Results" MODIFIED="1724022473552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm.coverage" NAME="main_dist_fullwarm Coverage Results" MODIFIED="1724022872096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_coord_partialwarm.coverage" NAME="main_coord_partialwarm Coverage Results" MODIFIED="1724023530424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1723306142505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main.coverage" NAME="main Coverage Results" MODIFIED="1723901013724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_coord.coverage" NAME="main_coord Coverage Results" MODIFIED="1723905023040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$hierarchical_agglomerative.coverage" NAME="hierarchical_agglomerative Coverage Results" MODIFIED="1723378735681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_coord_fullwarm.coverage" NAME="main_coord_fullwarm Coverage Results" MODIFIED="1724054713435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
