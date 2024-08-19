@@ -3,9 +3,10 @@ from scipy.spatial.distance import pdist, squareform
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.manifold import MDS
+import pandas as pd
 
 import preprocessing
-
+"""
 distance_matrix_cleaned = preprocessing.preprocess("djlorj.txt")
 distance_matrix = np.array(distance_matrix_cleaned)
 
@@ -32,7 +33,7 @@ def plot_elbow_method(Z):
     plt.show()
 
 plot_elbow_method(Z)
-num_clusters = 4
+num_clusters = 15
 
 clusters = fcluster(Z, t=num_clusters, criterion='maxclust')
 
@@ -59,4 +60,60 @@ plt.title('Clusters Visualization')
 plt.xlabel('MDS Dimension 1')
 plt.ylabel('MDS Dimension 2')
 plt.legend()
+plt.show()
+"""
+
+df = pd.read_excel('20 Clusters.xlsx', sheet_name='Clusters')
+df[['X', 'Y']] = df['Coordinates'].str.strip('()').str.split(',', expand=True).astype(float)
+coordinates = df[['X', 'Y']].values
+
+condensed_distance_matrix = pdist(coordinates)
+
+Z = linkage(condensed_distance_matrix, method='ward')
+
+plt.figure(figsize=(10, 7))
+plt.title("Dendrogram")
+dendrogram(Z)
+plt.show()
+
+def plot_elbow_method(Z, num_points=20):
+    last = Z[-num_points:, 2]
+    last_rev = last[::-1]
+    indexes = np.arange(1, len(last) + 1)
+    plt.figure(figsize=(10, 7))
+    plt.plot(indexes, last_rev)
+    plt.title('Elbow Method')
+    plt.xlabel('Number of clusters')
+    plt.ylabel('Inertia')
+    plt.show()
+
+plot_elbow_method(Z, num_points=20)
+
+num_clusters = 15
+
+clusters = fcluster(Z, t=num_clusters, criterion='maxclust')
+
+print("Cluster assignments for each point:")
+for idx, cluster_id in enumerate(clusters):
+    print(f"Point {idx + 1}: Cluster {cluster_id}")
+
+clustered_points = {}
+for idx, cluster_id in enumerate(clusters):
+    if cluster_id not in clustered_points:
+        clustered_points[cluster_id] = []
+    clustered_points[cluster_id].append(idx + 1)
+
+
+for cluster_id, points in sorted(clustered_points.items()):
+    print(f"Cluster {cluster_id}: Points {points}")
+
+plt.figure(figsize=(10, 7))
+for cluster_id in np.unique(clusters):
+    cluster_points = coordinates[clusters == cluster_id]
+    plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {cluster_id}')
+plt.title('Clusters Visualization')
+plt.xlabel('X Coordinate')
+plt.ylabel('Y Coordinate')
+plt.legend()
+plt.grid(True)
 plt.show()
