@@ -15,16 +15,26 @@ def perform_gmm_clustering(coordinates, num_clusters):
     labels = gmm.predict(coordinates)
     return labels
 
+
 def plot_clusters_with_coordinates(clusters, coordinates):
     """
     Plots the clusters using the 2D coordinates after clustering based on the distance matrix.
+    Adds markers to indicate the centroids of each cluster.
     """
     plt.figure(figsize=(12, 6))
     num_clusters = len(clusters)
 
+    centroids = []
+
     for l in range(num_clusters):
         cluster_points = coordinates[clusters[l]]
         plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {l}')
+
+        # Calculate and plot the centroid
+        centroid_x = np.mean(cluster_points[:, 0])
+        centroid_y = np.mean(cluster_points[:, 1])
+        centroids.append((centroid_x, centroid_y))
+        plt.scatter(centroid_x, centroid_y, marker='x', color='red', s=100, label=f'Centroid {l}')
 
     plt.title('GMM Clustering on Coordinates')
     plt.xlabel('X Coordinate')
@@ -32,6 +42,9 @@ def plot_clusters_with_coordinates(clusters, coordinates):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+    return centroids
+
 
 def perform_gurobi_clustering(djlorj_matrix, initial_labels, num_clusters, d_max_lower_bound, d_avg_lower_bound, coordinates):
     """
