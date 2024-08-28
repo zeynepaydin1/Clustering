@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="hierarchical clustering integrated to gurobi clustering.">
-      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_affinity_20.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_gmm_20.py" afterDir="false" />
+    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="gmm implementation">
+      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_hierarchicalandgmm_20.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical_20.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_kmeans_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dist_fullwarm_kmeans_20.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_gmm_20.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical_20.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,45 +54,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.dbscan.executor": "Run",
-    "Python.gmm.executor": "Run",
-    "Python.hierarchical_agglomerative.executor": "Run",
-    "Python.kmeans.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_coord.executor": "Run",
-    "Python.main_coord20_fullwarm.executor": "Run",
-    "Python.main_coord8_fullwarm.executor": "Run",
-    "Python.main_coord_fullwarm.executor": "Run",
-    "Python.main_coord_fullwarm_hierarchical.executor": "Run",
-    "Python.main_coord_partialwarm.executor": "Run",
-    "Python.main_dist_fullwarm.executor": "Run",
-    "Python.main_dist_fullwarm_affinity_20.executor": "Run",
-    "Python.main_dist_fullwarm_dbscan_20.executor": "Run",
-    "Python.main_dist_fullwarm_gmm_20.executor": "Run",
-    "Python.main_dist_fullwarm_hierarchical.executor": "Run",
-    "Python.main_dist_fullwarm_hierarchical_20.executor": "Run",
-    "Python.main_dist_fullwarm_kmeans_20.executor": "Run",
-    "Python.main_dist_fullwarm_spectral_20.executor": "Run",
-    "Python.main_dist_partialwarm.executor": "Run",
-    "Python.main_test.executor": "Run",
-    "Python.try.executor": "Run",
-    "Python.tryü.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/zeynepaydin/Desktop",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.dbscan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gmm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hierarchical_agglomerative.executor&quot;: &quot;Run&quot;,
+    &quot;Python.kmeans.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord20_fullwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord8_fullwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord_fullwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord_fullwarm_hierarchical.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_coord_partialwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_affinity_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_dbscan_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_gmm_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_hierarchical.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_hierarchical_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_kmeans_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_fullwarm_spectral_20.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_dist_partialwarm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tryü.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zeynepaydin/Desktop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$USER_HOME$/Desktop" />
@@ -122,7 +121,9 @@
       <workItem from="1724074020871" duration="825000" />
       <workItem from="1724400306974" duration="4290000" />
       <workItem from="1724672205303" duration="7811000" />
-      <workItem from="1724853726380" duration="3673000" />
+      <workItem from="1724853726380" duration="4914000" />
+      <workItem from="1724864702083" duration="2802000" />
+      <workItem from="1724867543067" duration="5032000" />
     </task>
     <task id="LOCAL-00001" summary="Different clusterings">
       <option name="closed" value="true" />
@@ -172,7 +173,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724843641615</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="gmm implementation">
+      <option name="closed" value="true" />
+      <created>1724857417635</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724857417635</updated>
+    </task>
+    <task id="LOCAL-00008" summary="gmm implementation">
+      <option name="closed" value="true" />
+      <created>1724858644645</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724858644645</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,7 +203,8 @@
     <MESSAGE value="requirements added" />
     <MESSAGE value="8 and 20 nodes clustering added." />
     <MESSAGE value="hierarchical clustering integrated to gurobi clustering." />
-    <option name="LAST_COMMIT_MESSAGE" value="hierarchical clustering integrated to gurobi clustering." />
+    <MESSAGE value="gmm implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="gmm implementation" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/clustering$gmm.coverage" NAME="gmm Coverage Results" MODIFIED="1724401392936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -206,9 +224,9 @@
     <SUITE FILE_PATH="coverage/clustering$main_coord20_fullwarm.coverage" NAME="main_coord20_fullwarm Coverage Results" MODIFIED="1724402268219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main.coverage" NAME="main Coverage Results" MODIFIED="1723901013724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_affinity_20.coverage" NAME="main_dist_fullwarm_affinity_20 Coverage Results" MODIFIED="1724855560017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_hierarchical_20.coverage" NAME="main_dist_fullwarm_hierarchical_20 Coverage Results" MODIFIED="1724854352016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_hierarchical_20.coverage" NAME="main_dist_fullwarm_hierarchical_20 Coverage Results" MODIFIED="1724872549860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord.coverage" NAME="main_coord Coverage Results" MODIFIED="1723905023040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_gmm_20.coverage" NAME="main_dist_fullwarm_gmm_20 Coverage Results" MODIFIED="1724856883772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_gmm_20.coverage" NAME="main_dist_fullwarm_gmm_20 Coverage Results" MODIFIED="1724870445745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$hierarchical_agglomerative.coverage" NAME="hierarchical_agglomerative Coverage Results" MODIFIED="1724056044458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord_fullwarm.coverage" NAME="main_coord_fullwarm Coverage Results" MODIFIED="1724054713435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord_fullwarm_hierarchical.coverage" NAME="main_coord_fullwarm_hierarchical Coverage Results" MODIFIED="1724840609827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
