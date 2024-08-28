@@ -234,7 +234,7 @@ def find_best_k(coordinates, max_k):
 
 def main():
     df = pd.read_excel('coord_8_20.xlsx', sheet_name='coordination of centers (8)')
-    coordinates = df.iloc[:, 1:3].values
+    coordinates = df.iloc[1:, 1:3].values
     distances = squareform(pdist(coordinates, 'euclidean'))
 
     d_max_lower_bound = np.min(distances[np.nonzero(distances)])

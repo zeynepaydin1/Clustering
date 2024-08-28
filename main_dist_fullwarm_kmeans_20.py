@@ -4,21 +4,16 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from scipy.spatial.distance import squareform, pdist
+from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
+from geopy.distance import geodesic
 
-
-def perform_kmeans_clustering(djlorj_matrix, num_clusters):
+def perform_kmeans_clustering(coordinates, num_clusters):
     """
-    Performs K-means clustering using the distance matrix.
+    Performs KMeans clustering using the coordinates.
     """
-    kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-    kmeans.fit(djlorj_matrix)
-
+    kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(coordinates)
     labels = kmeans.labels_
-    centroids = kmeans.cluster_centers_
-
-    return labels, centroids
-
+    return labels
 
 def plot_clusters_with_coordinates(clusters, coordinates):
     """
@@ -27,70 +22,21 @@ def plot_clusters_with_coordinates(clusters, coordinates):
     plt.figure(figsize=(12, 6))
     num_clusters = len(clusters)
 
-    new_centroids = []
     for l in range(num_clusters):
         cluster_points = coordinates[clusters[l]]
         plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {l}')
-        new_centroids.append(np.mean(cluster_points, axis=0))
 
-    new_centroids = np.array(new_centroids)
-    plt.scatter(new_centroids[:, 0], new_centroids[:, 1], s=300, c='red', marker='X', label='Centroids')
-
-    plt.title('Gurobi Optimization Clustering on Distance Matrix with New Centroids')
+    plt.title('Clustering on Distance Matrix with Coordinates')
     plt.xlabel('X Coordinate')
     plt.ylabel('Y Coordinate')
     plt.legend()
     plt.grid(True)
     plt.show()
 
-def plot_kmeans_clusters_with_coordinates(clusters, coordinates):
+def perform_gurobi_clustering(djlorj_matrix, initial_labels, num_clusters, d_max_lower_bound, d_avg_lower_bound, coordinates):
     """
-    Plots the clusters using the 2D coordinates after clustering based on the distance matrix.
-    """
-    plt.figure(figsize=(12, 6))
-    num_clusters = len(clusters)
-
-    new_centroids = []
-    for l in range(num_clusters):
-        cluster_points = coordinates[clusters[l]]
-        plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {l}')
-        new_centroids.append(np.mean(cluster_points, axis=0))
-
-    new_centroids = np.array(new_centroids)
-    plt.scatter(new_centroids[:, 0], new_centroids[:, 1], s=300, c='black', marker='X', label='Centroids')
-
-    plt.title('K-means Clustering on 2D Coordinates based on Distance Matrix')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-def calculate_kmeans_objective(djlorj_matrix, kmeans_labels, num_clusters):
-    """
-    Calculates the objective value for K-means clustering using the djlorj matrix.
-    """
-    d_max_kmeans = np.zeros(num_clusters)
-    d_avg_kmeans = np.zeros(num_clusters)
-
-    for l in range(num_clusters):
-        cluster_points = np.where(kmeans_labels == l)[0]
-        if len(cluster_points) > 1:
-            max_dist = max(djlorj_matrix[i, j] for i in cluster_points for j in cluster_points if i != j)
-            avg_dist = np.mean([djlorj_matrix[i, j] for i in cluster_points for j in cluster_points if i != j])
-        else:
-            max_dist = 0
-            avg_dist = 0
-
-        d_max_kmeans[l] = max_dist
-        d_avg_kmeans[l] = avg_dist
-
-    return sum(d_max_kmeans - d_avg_kmeans)
-
-
-def perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters, d_max_lower_bound, d_avg_lower_bound):
-    """
-    Performs Gurobi-based clustering using the full K-means clustering results as a warm start.
+    Performs Gurobi-based clustering using the initial clustering results (from KMeans or hierarchical) as a warm start.
+    Also, prints d_avg and the locations of the cluster centroids.
     """
     model = Model("MinimizeDifference")
     num_points = int(djlorj_matrix.shape[0])
@@ -101,17 +47,22 @@ def perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters, d_max_
     d_max = model.addVars(num_clusters, vtype=GRB.CONTINUOUS, name="d_max")
     d_avg = model.addVars(num_clusters, vtype=GRB.CONTINUOUS, name="d_avg")
     delta = model.addVars(num_clusters, vtype=GRB.CONTINUOUS, name="delta")
+    z = model.addVar(vtype=GRB.CONTINUOUS, name="z")
 
-    model.setObjective(quicksum(delta[l] for l in range(num_clusters)), GRB.MINIMIZE)
+    # Objective 1: Minimize the sum of delta[l]
+    model.setObjectiveN(quicksum(delta[l] for l in range(num_clusters)), index=0, priority=1)
+
+    # Objective 2: Minimize z
+    model.setObjectiveN(z, index=1, priority=0)
 
     # Constraint 1: Each point must be assigned to exactly one cluster
     for i in range(num_points):
         model.addConstr(quicksum(x[i, l] for l in range(num_clusters)) == 1, name=f"Assign_{i}")
 
-    # Warm start: Uses K-means clustering results
+    # Warm start: Uses initial clustering results (KMeans or hierarchical)
     for i in range(num_points):
         for l in range(num_clusters):
-            if kmeans_labels[i] == l:
+            if initial_labels[i] == l:
                 x[i, l].start = 1
             else:
                 x[i, l].start = 0
@@ -153,14 +104,13 @@ def perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters, d_max_
     for l in range(num_clusters):
         model.addConstr(d_max[l] - d_avg[l] == delta[l], name=f"Delta_{l}")
 
+    # New Constraint: delta[l] <= z
+    for l in range(num_clusters):
+        model.addConstr(delta[l] <= z, name=f"Delta_Leq_Z_{l}")
+
     for l in range(num_clusters):
         model.addConstr(d_max[l] >= d_max_lower_bound, name=f"d_max_lower_bound_{l}")
         model.addConstr(d_avg[l] >= d_avg_lower_bound, name=f"d_avg_lower_bound_{l}")
-
-    kmeans_obj = calculate_kmeans_objective(djlorj_matrix, kmeans_labels, num_clusters)
-    print(f"K-means objective value: {kmeans_obj}")
-
-    model.addConstr(quicksum(delta[l] for l in range(num_clusters)) <= kmeans_obj, name="KmeansBound")
 
     model.optimize()
 
@@ -175,10 +125,17 @@ def perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters, d_max_
         print("Clustering after Gurobi optimization:")
         for l, points in custom_clusters.items():
             print(f"Cluster {l}: Points {points}")
+
+        for l in range(num_clusters):
+            print(f"Cluster {l}: d_avg = {d_avg[l].X}")
+            cluster_points = custom_clusters[l]
+            centroid_x = np.mean([coordinates[i, 0] for i in cluster_points])
+            centroid_y = np.mean([coordinates[i, 1] for i in cluster_points])
+            print(f"Cluster {l} Centroid: ({centroid_x}, {centroid_y})")
     else:
         print("No optimal solution found or optimization terminated early.")
 
-    changes = np.where(kmeans_labels != new_labels)[0]
+    changes = np.where(initial_labels != new_labels)[0]
     if len(changes) > 0:
         print(f"Points with changed assignments: {changes}")
     else:
@@ -187,53 +144,79 @@ def perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters, d_max_
     return custom_clusters
 
 
-def find_best_k(djlorj_matrix, max_k):
+def find_optimal_k(Z):
     """
-    Uses the Elbow Method to find the best number of clusters for K-means.
+    Automatically finds the optimal number of clusters from the dendrogram using the largest gap method.
     """
-    sse = []
-    k_range = range(1, max_k + 1)
-    for k in k_range:
-        kmeans = KMeans(n_clusters=k, random_state=42)
-        kmeans.fit(djlorj_matrix)
-        sse.append(kmeans.inertia_)
+    last = Z[-10:, 2]
+    last_rev = last[::-1]
+    gaps = np.diff(last_rev)
+    optimal_k = gaps.argmax() + 1
+    return optimal_k
 
+def find_best_k(djlorj_matrix):
+    """
+    Uses the largest gap in the dendrogram to find the best number of clusters for hierarchical clustering.
+    """
+    Z = linkage(djlorj_matrix, method='complete')
     plt.figure(figsize=(10, 6))
-    plt.plot(k_range, sse, marker='o')
-    plt.title('Elbow Method For Optimal k')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Sum of squared distances (SSE)')
-    plt.grid(True)
+    dendrogram(Z)
+    plt.title('Dendrogram For Optimal k')
+    plt.xlabel('Points')
+    plt.ylabel('Distance')
     plt.show()
 
-    elbow_point = np.argmin(np.diff(sse, 2)) + 2  #+2 because diff reduces the length by 2
+    optimal_k = find_optimal_k(Z)
+    print(f"Optimal number of clusters: {optimal_k}")
+    return optimal_k
 
-    print(f"Optimal number of clusters (elbow point): {elbow_point}")
-    return elbow_point
 
+def calculate_avg_travel_time(centroids):
+    """
+    Calculate the average travel time between any two clusters based on their centroids.
+    """
+    num_clusters = len(centroids)
+    total_time = 0
+    count = 0
+
+    for i in range(num_clusters):
+        for j in range(i + 1, num_clusters):
+            distance = geodesic(centroids[i], centroids[j]).kilometers
+            time = distance
+            total_time += time
+            count += 1
+
+    avg_travel_time = total_time / count if count > 0 else 0
+    return avg_travel_time
 
 def main():
-    coordinates = pd.read_excel('20 Clusters.xlsx', sheet_name='Clusters')
-    coordinates[['X', 'Y']] = coordinates['Coordinates'].str.strip('()').str.split(',', expand=True).astype(float)
-    coordinates = coordinates[['X', 'Y']].values
-    djlorj_matrix = preprocessing.preprocess("djlorj.txt").values
+    df = pd.read_excel('coord_8_20.xlsx', sheet_name='coordination of centers (20)')
+    coordinates = df.iloc[0:, 1:3].values
+    djlorj_matrix = preprocessing.preprocess("20pts.txt").values
     d_max_lower_bound = np.min(djlorj_matrix[np.nonzero(djlorj_matrix)])
     d_avg_lower_bound = np.mean(djlorj_matrix[np.nonzero(djlorj_matrix)])
 
-    max_k = 20
-    optimal_k = find_best_k(djlorj_matrix, max_k)
+    optimal_k = find_best_k(djlorj_matrix)
 
     num_clusters = optimal_k
-    kmeans_labels, kmeans_centroids = perform_kmeans_clustering(djlorj_matrix, num_clusters)
+    kmeans_labels = perform_kmeans_clustering(coordinates, num_clusters)
 
-    plot_kmeans_clusters_with_coordinates({l: np.where(kmeans_labels == l)[0] for l in range(num_clusters)}, coordinates)
+    plot_clusters_with_coordinates({l: np.where(kmeans_labels == l)[0] for l in range(num_clusters)}, coordinates)
     custom_clusters = perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters,
-                                                d_max_lower_bound, d_avg_lower_bound)
+                                                d_max_lower_bound, d_avg_lower_bound, coordinates)
 
     plot_clusters_with_coordinates(custom_clusters, coordinates)
+
+    centroids = []
+    for cluster_points in custom_clusters.values():
+        centroid_x = np.mean([coordinates[i, 0] for i in cluster_points])
+        centroid_y = np.mean([coordinates[i, 1] for i in cluster_points])
+        centroids.append((centroid_x, centroid_y))
+
+    avg_travel_time = calculate_avg_travel_time(centroids)
+    print(f"Average Travel Time between any two clusters: {avg_travel_time:.2f} hours")
 
 
 if __name__ == "__main__":
     main()
-
 
