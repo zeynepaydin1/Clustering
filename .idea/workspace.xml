@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="8 and 20 nodes clustering added.">
-      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical.py" afterDir="false" />
+    <list default="true" id="4a403e1f-6b0c-476a-b928-eeb1cca8a51a" name="Changes" comment="hierarchical clustering integrated to gurobi clustering.">
+      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_affinity_20.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_dist_fullwarm_gmm_20.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_coord20_fullwarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_coord20_fullwarm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_coord8_fullwarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_coord8_fullwarm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dist_fullwarm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dist_fullwarm_hierarchical_20.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_dist_fullwarm_kmeans_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dist_fullwarm_kmeans_20.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,13 @@
     "Python.main_coord_fullwarm_hierarchical.executor": "Run",
     "Python.main_coord_partialwarm.executor": "Run",
     "Python.main_dist_fullwarm.executor": "Run",
+    "Python.main_dist_fullwarm_affinity_20.executor": "Run",
+    "Python.main_dist_fullwarm_dbscan_20.executor": "Run",
+    "Python.main_dist_fullwarm_gmm_20.executor": "Run",
     "Python.main_dist_fullwarm_hierarchical.executor": "Run",
+    "Python.main_dist_fullwarm_hierarchical_20.executor": "Run",
+    "Python.main_dist_fullwarm_kmeans_20.executor": "Run",
+    "Python.main_dist_fullwarm_spectral_20.executor": "Run",
     "Python.main_dist_partialwarm.executor": "Run",
     "Python.main_test.executor": "Run",
     "Python.try.executor": "Run",
@@ -115,7 +121,8 @@
       <workItem from="1723379625868" duration="39778000" />
       <workItem from="1724074020871" duration="825000" />
       <workItem from="1724400306974" duration="4290000" />
-      <workItem from="1724672205303" duration="7744000" />
+      <workItem from="1724672205303" duration="7811000" />
+      <workItem from="1724853726380" duration="3673000" />
     </task>
     <task id="LOCAL-00001" summary="Different clusterings">
       <option name="closed" value="true" />
@@ -157,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724401095250</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="hierarchical clustering integrated to gurobi clustering.">
+      <option name="closed" value="true" />
+      <created>1724843641615</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724843641615</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,14 +185,18 @@
     <MESSAGE value="hierarchical clustering updated" />
     <MESSAGE value="requirements added" />
     <MESSAGE value="8 and 20 nodes clustering added." />
-    <option name="LAST_COMMIT_MESSAGE" value="8 and 20 nodes clustering added." />
+    <MESSAGE value="hierarchical clustering integrated to gurobi clustering." />
+    <option name="LAST_COMMIT_MESSAGE" value="hierarchical clustering integrated to gurobi clustering." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/clustering$gmm.coverage" NAME="gmm Coverage Results" MODIFIED="1724401392936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_kmeans_20.coverage" NAME="main_dist_fullwarm_kmeans_20 Coverage Results" MODIFIED="1724854243236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$try.coverage" NAME="try Coverage Results" MODIFIED="1723304285074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_dbscan_20.coverage" NAME="main_dist_fullwarm_dbscan_20 Coverage Results" MODIFIED="1724855343182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$tryü.coverage" NAME="tryü Coverage Results" MODIFIED="1723229762120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord8_fullwarm.coverage" NAME="main_coord8_fullwarm Coverage Results" MODIFIED="1724402298277" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$kmeans.coverage" NAME="kmeans Coverage Results" MODIFIED="1723217979632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_spectral_20.coverage" NAME="main_dist_fullwarm_spectral_20 Coverage Results" MODIFIED="1724854859337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$dbscan.coverage" NAME="dbscan Coverage Results" MODIFIED="1723218325764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_dist_partialwarm.coverage" NAME="main_dist_partialwarm Coverage Results" MODIFIED="1724022473552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm.coverage" NAME="main_dist_fullwarm Coverage Results" MODIFIED="1724843210768" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -186,7 +205,10 @@
     <SUITE FILE_PATH="coverage/clustering$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1723306142505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord20_fullwarm.coverage" NAME="main_coord20_fullwarm Coverage Results" MODIFIED="1724402268219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main.coverage" NAME="main Coverage Results" MODIFIED="1723901013724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_affinity_20.coverage" NAME="main_dist_fullwarm_affinity_20 Coverage Results" MODIFIED="1724855560017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_hierarchical_20.coverage" NAME="main_dist_fullwarm_hierarchical_20 Coverage Results" MODIFIED="1724854352016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord.coverage" NAME="main_coord Coverage Results" MODIFIED="1723905023040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clustering$main_dist_fullwarm_gmm_20.coverage" NAME="main_dist_fullwarm_gmm_20 Coverage Results" MODIFIED="1724856883772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$hierarchical_agglomerative.coverage" NAME="hierarchical_agglomerative Coverage Results" MODIFIED="1724056044458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord_fullwarm.coverage" NAME="main_coord_fullwarm Coverage Results" MODIFIED="1724054713435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clustering$main_coord_fullwarm_hierarchical.coverage" NAME="main_coord_fullwarm_hierarchical Coverage Results" MODIFIED="1724840609827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

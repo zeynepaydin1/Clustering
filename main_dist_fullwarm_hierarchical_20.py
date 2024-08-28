@@ -3,8 +3,8 @@ from gurobipy import Model, GRB, quicksum
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
-from geopy.distance import geodesic
+from scipy.cluster.hierarchy import linkage, fcluster
+from sklearn.metrics import silhouette_score
 
 def perform_hierarchical_clustering(djlorj_matrix, num_clusters):
     """
@@ -31,7 +31,6 @@ def plot_clusters_with_coordinates(clusters, coordinates):
     plt.legend()
     plt.grid(True)
     plt.show()
-
 
 def perform_gurobi_clustering(djlorj_matrix, hierarchical_labels, num_clusters, d_max_lower_bound, d_avg_lower_bound,
                               coordinates):
@@ -144,51 +143,22 @@ def perform_gurobi_clustering(djlorj_matrix, hierarchical_labels, num_clusters, 
 
     return custom_clusters
 
-
-def find_optimal_k(Z):
+def find_best_k(djlorj_matrix, max_k=10):
     """
-    Automatically finds the optimal number of clusters from the dendrogram using the largest gap method.
-    """
-    last = Z[-10:, 2]
-    last_rev = last[::-1]
-    gaps = np.diff(last_rev)
-    optimal_k = gaps.argmax() + 1
-    return optimal_k
-
-def find_best_k(djlorj_matrix):
-    """
-    Uses the largest gap in the dendrogram to find the best number of clusters for hierarchical clustering.
+    Uses the Silhouette Method to find the best number of clusters for hierarchical clustering.
     """
     Z = linkage(djlorj_matrix, method='complete')
-    plt.figure(figsize=(10, 6))
-    dendrogram(Z)
-    plt.title('Dendrogram For Optimal k')
-    plt.xlabel('Points')
-    plt.ylabel('Distance')
-    plt.show()
+    silhouette_scores = []
 
-    optimal_k = find_optimal_k(Z)
+    for k in range(2, max_k + 1):
+        labels = fcluster(Z, k, criterion='maxclust')
+        score = silhouette_score(djlorj_matrix, labels, metric='precomputed')
+        silhouette_scores.append(score)
+        print(f"Silhouette score for {k} clusters: {score}")
+
+    optimal_k = np.argmax(silhouette_scores) + 2  # +2 because range starts from 2
     print(f"Optimal number of clusters: {optimal_k}")
     return optimal_k
-
-
-def calculate_avg_travel_time(centroids):
-    """
-    Calculate the average travel time between any two clusters based on their centroids.
-    """
-    num_clusters = len(centroids)
-    total_time = 0
-    count = 0
-
-    for i in range(num_clusters):
-        for j in range(i + 1, num_clusters):
-            distance = geodesic(centroids[i], centroids[j]).kilometers
-            time = distance
-            total_time += time
-            count += 1
-
-    avg_travel_time = total_time / count if count > 0 else 0
-    return avg_travel_time
 
 def main():
     df = pd.read_excel('coord_8_20.xlsx', sheet_name='coordination of centers (20)')
@@ -197,7 +167,7 @@ def main():
     d_max_lower_bound = np.min(djlorj_matrix[np.nonzero(djlorj_matrix)])
     d_avg_lower_bound = np.mean(djlorj_matrix[np.nonzero(djlorj_matrix)])
 
-    optimal_k = find_best_k(djlorj_matrix)
+    optimal_k = find_best_k(djlorj_matrix, max_k=10)
 
     num_clusters = optimal_k
     hierarchical_labels = perform_hierarchical_clustering(djlorj_matrix, num_clusters)
@@ -207,21 +177,6 @@ def main():
                                                 d_max_lower_bound, d_avg_lower_bound, coordinates)
 
     plot_clusters_with_coordinates(custom_clusters, coordinates)
-
-    centroids = [
-        (37.32424579609845, 37.10994917128785),
-        (37.388209951387054, 36.9947072410645),
-        (37.2712877723232, 37.05256225518513),
-        (37.389082583725454, 37.0329839573529),
-        (37.30100652466665, 37.0553020301111),
-        (37.2487756273333, 36.9621883532222),
-        (37.3149602810317, 37.0158568423015),
-        (37.19229754688304, 37.06592641217966),
-        (37.2925966325, 36.980124085)
-    ]
-
-    avg_travel_time = calculate_avg_travel_time(centroids)
-    print(f"Average Travel Time between any two clusters: {avg_travel_time:.2f} hours")
 
 
 if __name__ == "__main__":

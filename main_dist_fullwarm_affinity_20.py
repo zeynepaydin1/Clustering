@@ -3,18 +3,17 @@ from gurobipy import Model, GRB, quicksum
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
+from sklearn.cluster import AffinityPropagation
 from sklearn.metrics import silhouette_score
-from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
 from geopy.distance import geodesic
 
-def perform_kmeans_clustering(coordinates, num_clusters):
+def perform_affinity_propagation_clustering(coordinates):
     """
-    Performs KMeans clustering using the coordinates.
+    Performs Affinity Propagation clustering using the coordinates.
     """
-    kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(coordinates)
-    labels = kmeans.labels_
-    return labels
+    affinity = AffinityPropagation(random_state=0)
+    labels = affinity.fit_predict(coordinates)
+    return labels, len(set(labels))  # Returning labels and number of clusters
 
 def plot_clusters_with_coordinates(clusters, coordinates):
     """
@@ -27,7 +26,7 @@ def plot_clusters_with_coordinates(clusters, coordinates):
         cluster_points = coordinates[clusters[l]]
         plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {l}')
 
-    plt.title('Clustering on Distance Matrix with Coordinates')
+    plt.title('Affinity Propagation Clustering on Coordinates')
     plt.xlabel('X Coordinate')
     plt.ylabel('Y Coordinate')
     plt.legend()
@@ -36,7 +35,7 @@ def plot_clusters_with_coordinates(clusters, coordinates):
 
 def perform_gurobi_clustering(djlorj_matrix, initial_labels, num_clusters, d_max_lower_bound, d_avg_lower_bound, coordinates):
     """
-    Performs Gurobi-based clustering using the initial clustering results (from KMeans or hierarchical) as a warm start.
+    Performs Gurobi-based clustering using the initial clustering results (from Affinity Propagation) as a warm start.
     Also, prints d_avg and the locations of the cluster centroids.
     """
     model = Model("MinimizeDifference")
@@ -60,7 +59,7 @@ def perform_gurobi_clustering(djlorj_matrix, initial_labels, num_clusters, d_max
     for i in range(num_points):
         model.addConstr(quicksum(x[i, l] for l in range(num_clusters)) == 1, name=f"Assign_{i}")
 
-    # Warm start: Uses initial clustering results (KMeans or hierarchical)
+    # Warm start: Uses initial clustering results (Affinity Propagation)
     for i in range(num_points):
         for l in range(num_clusters):
             if initial_labels[i] == l:
@@ -144,23 +143,6 @@ def perform_gurobi_clustering(djlorj_matrix, initial_labels, num_clusters, d_max
 
     return custom_clusters
 
-def find_best_k(coordinates, djlorj_matrix, max_k=10):
-    """
-    Uses the Silhouette Method to find the best number of clusters for KMeans clustering.
-    """
-    silhouette_scores = []
-
-    for k in range(2, max_k + 1):
-        kmeans = KMeans(n_clusters=k, random_state=0).fit(coordinates)
-        labels = kmeans.labels_
-        score = silhouette_score(djlorj_matrix, labels, metric='precomputed')
-        silhouette_scores.append(score)
-        print(f"Silhouette score for {k} clusters: {score}")
-
-    optimal_k = np.argmax(silhouette_scores) + 2  # +2 because range starts from 2
-    print(f"Optimal number of clusters: {optimal_k}")
-    return optimal_k
-
 def calculate_avg_travel_time(centroids):
     """
     Calculate the average travel time between any two clusters based on their centroids.
@@ -186,17 +168,20 @@ def main():
     d_max_lower_bound = np.min(djlorj_matrix[np.nonzero(djlorj_matrix)])
     d_avg_lower_bound = np.mean(djlorj_matrix[np.nonzero(djlorj_matrix)])
 
-    optimal_k = find_best_k(coordinates, djlorj_matrix, max_k=10)
+    # Perform Affinity Propagation clustering
+    affinity_labels, num_clusters = perform_affinity_propagation_clustering(coordinates)
 
-    num_clusters = optimal_k
-    kmeans_labels = perform_kmeans_clustering(coordinates, num_clusters)
+    # Plot the clusters based on the coordinates
+    plot_clusters_with_coordinates({l: np.where(affinity_labels == l)[0] for l in range(num_clusters)}, coordinates)
 
-    plot_clusters_with_coordinates({l: np.where(kmeans_labels == l)[0] for l in range(num_clusters)}, coordinates)
-    custom_clusters = perform_gurobi_clustering(djlorj_matrix, kmeans_labels, num_clusters,
+    # Perform Gurobi optimization using the Affinity Propagation clustering results as a warm start
+    custom_clusters = perform_gurobi_clustering(djlorj_matrix, affinity_labels, num_clusters,
                                                 d_max_lower_bound, d_avg_lower_bound, coordinates)
 
+    # Plot the optimized clusters
     plot_clusters_with_coordinates(custom_clusters, coordinates)
 
+    # Calculate the average travel time between clusters
     centroids = []
     for cluster_points in custom_clusters.values():
         centroid_x = np.mean([coordinates[i, 0] for i in cluster_points])
